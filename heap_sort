@@ -1,0 +1,78 @@
+#include<stdio.h>
+#define SIZE 10
+void insert(int A[],int N,int value)
+{
+    int index,parindex;
+    N++;
+    index=N;
+
+    while(index>0)
+    {
+        parindex=(index-1)/2;
+        if(value <=A[parindex]){
+            A[index]=value;
+            return;
+        }
+        A[index]=A[parindex];
+        index=parindex;
+    }
+    A[index]=value;
+}
+void delHeap(int A[],int N,int *I)
+{
+    int last,index,left,right;
+    *I=A[0];
+    last=A[N];
+    N--;
+    index=0;
+    left=1;
+    right=2;
+    while(right<=N){
+        if(last>=A[left]&&last>=A[right]){
+            A[index]=last;
+            return;
+        }
+        if(A[left]>=A[right]){
+            A[index]=A[left];
+            index=left;
+        }
+        else{
+            A[index]=A[right];
+            index=right;
+        }
+        left=2*index+1;
+        right=2*index+2;
+    }
+    if(left==N && last<A[left]){
+        A[index]=A[left];
+        index=left;
+    }
+    A[index]=last;
+
+}
+void heapSort(int A[],int N)
+{
+    int j,item;
+    for(j=0;j<N-1;j++)
+        insert(A,j,A[j+1]);
+    while(N>0){
+        delHeap(A,N-1,&item);
+        A[N-1]=item;
+        N--;
+    }
+}
+main()
+{
+    int i,a[SIZE]={100,22,55,11,77,44,33,99,88,66};
+    heapSort(a,SIZE);
+    for(i=0;i<SIZE;i++)
+        printf("%d ",a[i]);
+    getch();
+}
+
+
+
+
+
+
+
