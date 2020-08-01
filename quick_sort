@@ -1,0 +1,61 @@
+#include<stdio.h>
+int quick(int a[],int b,int e)
+{
+	int l=b,r=e,loc=b,t;
+	
+	while(1)
+	{
+	         if(l==r&&r==loc)
+	          return l;
+	          else 
+	           {
+	            while(1){
+	                  if((a[loc]>a[r])||(a[loc]==a[r]&&loc==r))
+	                     {
+	                     	t=a[r];
+		                    a[r]=a[loc];
+		                    a[loc]=t;
+		                     loc=r;
+		                     break;
+	                      }
+	                       r--;
+                        }
+                    }
+                    if(l==r&&r==loc)
+                	return l;
+	                 else
+	                 {
+	                 	while(1)
+	                	{
+			            if((a[l]>a[loc])||(a[loc]==a[l]&&loc==l))
+			               {
+		                       t=a[l];  
+		                       a[l]=a[loc];
+		                        a[loc]=t;
+		                        loc=l;
+			                     break;
+			                }
+			                    l++;
+		                     } 
+	                    }
+                      }
+        }
+void quicksort(int a[],int s,int n)
+{
+	int l=quick(a,s,n);
+	if(l>s+1)
+	quicksort(a,s,l-1);
+	if(l<n-1)
+	quicksort(a,l+1,n);
+	
+}
+int main()
+{
+	int a[15],i,n;
+	scanf("%d",&n);
+	for(i=0;i<n;i++)
+	scanf("%d",&a[i]);
+	quicksort(a,0,n-1);
+	for(i=0;i<n;i++)
+	printf("%d ",a[i]);
+}
